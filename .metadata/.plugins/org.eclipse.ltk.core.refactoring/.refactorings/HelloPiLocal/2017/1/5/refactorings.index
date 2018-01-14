@@ -1,0 +1,45 @@
+1485798773596	Copy compilation unit
+1485800242449	Rename method 'doOperation'
+1485800287899	Rename type 'RobotClientKeyListener'
+1485800362470	Rename type 'Operation'
+1485800398254	Encapsulate field 'type'
+1485800531441	Inline local variable 'outputStream'
+1485800688226	Rename local variable 'operation'
+1485800731831	Rename local variable 'type'
+1485801279335	Rename type 'RobotServerMock'
+1485801289074	Rename type 'RobotServer'
+1485801299705	Rename type 'RobotClient'
+1485802465493	Rename type 'Server'
+1485802475914	Rename type 'ServerMock'
+1485802602325	Rename type 'RobotServer'
+1485802609453	Rename type 'Server'
+1485802673839	Rename type 'Client'
+1485804611635	Encapsulate field 'motorFR'
+1485804620009	Encapsulate field 'motorRR'
+1485804623634	Encapsulate field 'motorFL'
+1485804627879	Encapsulate field 'motorRL'
+1485804820628	Extract constant '_10'
+1485804840498	Extract constant '_10'
+1485805167371	Extract method 'extracted'
+1485805322731	Copy compilation unit
+1485806469924	Extract method 'extracted'
+1485806580650	Inline local variable 'server'
+1485807315460	Extract local variable 'objectOutputStream'
+1485807340399	Extract local variable 'outputStream'
+1485807440700	Extract local variable 'inputStream'
+1485808453363	Extract constant '_10'
+1485808572013	Encapsulate field 'maxSpeed'
+1485808619558	Extract local variable 'o'
+1485808722915	Extract local variable 'frontRight'
+1485809011317	Extract local variable 'jTextField'
+1485809025706	Convert local variable 'maxSpeed' to field
+1485809031497	Encapsulate field 'maxSpeed'
+1485809745832	Extract local variable 'findByKeySet'
+1485810007358	Delete element
+1485810013103	Delete element
+1485810682570	Rename type 'ClientKeyListener'
+1485811205248	Rename type 'SensorController'
+1485811211140	Move compilation unit
+1485811215658	Move compilation unit
+1485812187538	Convert local variable 'movementController' to field
+1485812306232	Rename local variable 'rangeSensor'

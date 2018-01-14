@@ -1,0 +1,9 @@
+1489095199400	Extract method 'extracted'
+1489095234406	Convert local variable 'triggerC' to field
+1489095237388	Convert local variable 'echoC' to field
+1489095239493	Convert local variable 'triggerL' to field
+1489095241719	Convert local variable 'echoL' to field
+1489095244251	Convert local variable 'triggerR' to field
+1489095246375	Convert local variable 'echoR' to field
+1489095257622	Rename field 'pinTriggerC'
+1489095263569	Rename field 'pinEchoC'

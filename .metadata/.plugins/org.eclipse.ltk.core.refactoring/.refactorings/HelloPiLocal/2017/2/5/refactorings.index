@@ -1,0 +1,21 @@
+1486240332066	Extract method 'extracted'
+1486240339379	Extract method 'extracted'
+1486300363280	Rename package 'com.robot'
+1486300555504	Delete element
+1486300570927	Copy elements
+1486300577333	Delete element
+1486300633257	Move compilation unit
+1486300636711	Move compilation unit
+1486300639992	Move compilation unit
+1486300838047	Rename type 'RobotClient'
+1486300877189	Delete element
+1486300967708	Extract local variable 'readObject'
+1486302098800	Extract method 'extracted'
+1486302323100	Delete element
+1486302450692	Rename field 'speed'
+1486302611855	Rename field 'speed'
+1486302887111	Delete element
+1486303352428	Copy compilation unit
+1486313898836	Rename field 'HOST'
+1486313976745	Extract method 'extracted'
+1486314189149	Extract local variable 'i'

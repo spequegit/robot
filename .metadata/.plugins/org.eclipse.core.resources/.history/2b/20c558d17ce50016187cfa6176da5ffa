@@ -1,0 +1,25 @@
+package com.robot;
+
+public class Speed {
+
+	private static final int MILI_AS_NANOS = 1000000;
+
+	public static void main(String[] args) {
+		int[] milis = new Speed().milis(1);
+
+		for (int i = 0; i <= 100; i ++;) {
+			milis = new Speed().milis(i);
+			System.out.println("for speed " + i + " " + milis[0] + " " + milis[1]);
+		}
+	}
+
+	private int[] milis(int speed) {
+		double i = (double) speed / 100;
+		double nanos = (1 / i);
+		double mod = nanos % 1;
+		double jed = nanos - mod;
+		int[] result = { (int) jed, (int) (mod * MILI_AS_NANOS) };
+		return result;
+	}
+
+}

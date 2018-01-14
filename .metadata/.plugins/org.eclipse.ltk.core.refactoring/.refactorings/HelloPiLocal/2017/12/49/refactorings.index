@@ -1,0 +1,15 @@
+1512591918804	Copy compilation units
+1512592498198	Copy compilation units
+1512592505057	Delete element
+1512592528320	Rename field 'pinTriggerCenter'
+1512592537751	Rename field 'pinEchoCenter'
+1512592546896	Rename field 'triggerCenter'
+1512592558031	Rename field 'echoCenter'
+1512592636336	Rename type 'PinSensor'
+1512592861516	Rename field 'distance1'
+1512592871826	Rename field 'distance3'
+1512592881803	Rename field 'distance2'
+1512592902087	Rename local variable 'distanceList1'
+1512592914222	Rename local variable 'distanceList2'
+1512592922789	Rename local variable 'distanceList3'
+1512824430488	Copy package

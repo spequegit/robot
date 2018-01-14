@@ -1,0 +1,21 @@
+package com.robot;
+
+public class Speed {
+
+	public static void main(String[] args) {
+		int[] milis = new Speed().milis(50);
+		System.out.println(milis[0] + " " + milis[1]);
+	}
+
+	private int[] milis(int speed) {
+		double i = (double) speed / 100;
+		double nanos = (1 / i);
+		double reszta = nanos % 1;
+		double jed = nanos - reszta;
+
+		int[] result = { (int) jed, (int) (reszta * 1000000) };
+
+		return result;
+	}
+
+}

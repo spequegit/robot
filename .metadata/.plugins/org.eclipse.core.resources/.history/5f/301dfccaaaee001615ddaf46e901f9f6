@@ -1,0 +1,49 @@
+package com.robot;
+
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
+import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import com.pi4j.io.gpio.RaspiPin;
+
+public class Buzzer {
+
+	private GpioPinDigitalOutput buzzerGpio;
+	private boolean work;
+
+	public Buzzer() {
+		System.out.println("buzzer");
+		GpioController controller = GpioFactory.getInstance();
+		buzzerGpio = controller.provisionDigitalOutputPin(RaspiPin.GPIO_27);
+	}
+
+	public void horn() {
+		new Thread() {
+			@Override
+			public void run() {
+				try {
+					System.out.println("beep");
+					while (true) {
+						if (isWork()) {
+							buzzerGpio.setState(true);
+							Thread.sleep(200);
+							setWork(false);
+						} else {
+							buzzerGpio.setState(false);
+						}
+						Thread.sleep(200);
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
+	}
+
+	public boolean isWork() {
+		return work;
+	}
+
+	public void setWork(boolean work) {
+		this.work = work;
+	}
+}

@@ -1,0 +1,64 @@
+package com.robot;
+
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
+import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import com.pi4j.io.gpio.Pin;
+
+public class Motor extends Thread {
+
+	private GpioController controller = GpioFactory.getInstance();
+	private GpioPinDigitalOutput directionGpio;
+	private GpioPinDigitalOutput stepGpio;
+	private boolean work;
+	private boolean direction;
+	private long sleep = 5;
+
+	public Motor(Pin stepPin, Pin directionPin) throws InterruptedException {
+		directionGpio = controller.provisionDigitalOutputPin(directionPin);
+		stepGpio = controller.provisionDigitalOutputPin(stepPin);
+		start();
+	}
+
+	public void run() {
+		while (true) {
+			directionGpio.setState(direction);
+			try {
+				if (work) {
+					step(stepGpio);
+				} else {
+					Thread.sleep(100);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private void step(GpioPinDigitalOutput gpioStep) throws InterruptedException {
+		//
+		gpioStep.setState(true);
+		Thread.sleep(1);
+		gpioStep.setState(false);
+
+		int milis = Math.round(sleep / 1000);
+		int nanos = (int) (sleep % 1000);
+
+		Thread.sleep(milis, nanos);
+		System.out.println(milis + " " + nanos);
+	}
+
+	public void move(int sleep) {
+		this.work = sleep != 0;
+		this.direction = sleep >= 0;
+		this.sleep = Math.abs(sleep);
+	}
+	
+	public static void main(String[] args) {
+		int milis = Math.round(sleep / 1000);
+		int nanos = (int) (sleep % 1000);
+
+		Thread.sleep(milis, nanos);
+		System.out.println(milis + " " + nanos);
+	}
+}

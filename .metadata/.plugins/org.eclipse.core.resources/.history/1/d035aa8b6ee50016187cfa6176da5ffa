@@ -1,0 +1,72 @@
+package com.robot;
+
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
+import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import com.pi4j.io.gpio.Pin;
+
+public class Motor extends Thread {
+
+	private GpioController controller = GpioFactory.getInstance();
+	private GpioPinDigitalOutput directionGpio;
+	private GpioPinDigitalOutput stepGpio;
+	private boolean work;
+	private boolean direction;
+	private long sleep = 5;
+	private boolean slower;
+
+	public Motor(Pin stepPin, Pin directionPin) throws InterruptedException {
+		directionGpio = controller.provisionDigitalOutputPin(directionPin);
+		stepGpio = controller.provisionDigitalOutputPin(stepPin);
+		start();
+	}
+
+	public void run() {
+		long time = 0;
+		while (true) {
+			directionGpio.setState(direction);
+			if (work) {
+				try {
+					time = time + sleep;
+					if (time > 100) {
+						time = 0;
+						sleep--;
+						if (sleep < 5) {
+							sleep = 5;
+						}
+					}
+					step(stepGpio, sleep * (slower ? 3 : 1));
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			} else {
+				sleep = 10;
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	private void step(GpioPinDigitalOutput gpioStep, long sleep) throws InterruptedException {
+		gpioStep.setState(true);
+		Thread.sleep(1);
+		gpioStep.setState(false);
+		Thread.sleep(sleep);
+	}
+
+	// public void move(Boolean direction) {
+	// this.work = true;
+	// this.direction = direction;
+	// this.slower = false;
+	// }
+
+	public void move(int movement) {
+		this.work = movement != 0;
+		this.direction = movement >= 0;
+		this.sleep = Math.abs(movement);
+	}
+
+}

@@ -1,0 +1,40 @@
+package com.robot.program;
+
+import com.robot.motor.MotorController;
+
+public class Program2 extends Thread {
+
+	private MotorController controller;
+
+	public Program2(MotorController controller) {
+		this.controller = controller;
+	}
+
+	public void run() {
+		try {
+			Thread.sleep(1000);
+
+			for (int i = 0; i < 20; i++) {
+
+				controller.rightWheel(4);
+				Thread.sleep(300);
+				controller.stop();
+
+				controller.leftWheel(4);
+				Thread.sleep(300);
+				controller.stop();
+				
+				controller.rightWheel(-4);
+				Thread.sleep(300);
+				controller.stop();
+				
+				controller.leftWheel(-4);
+				Thread.sleep(300);
+				controller.stop();
+			}
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}

@@ -1,0 +1,104 @@
+package com.robot;
+
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Set;
+
+import com.google.common.collect.Sets;
+
+public class RobotServer {
+
+	public static final int PORT = 10;
+
+	public RobotServer() throws UnknownHostException, IOException, InterruptedException, ClassNotFoundException {
+		Socket socket = connect();
+		processOperation(socket);
+	}
+
+	@SuppressWarnings("resource")
+	private Socket connect() throws IOException {
+		System.out.println("waiting...");
+		ServerSocket serverSocket = new ServerSocket(PORT);
+		Socket socket = serverSocket.accept();
+		System.out.println("standing by...");
+		return socket;
+	}
+
+	public void processOperation(Socket socket) throws IOException, ClassNotFoundException, InterruptedException {
+		MovementController controller = new MovementController();
+		Buzzer buzzer = new Buzzer();
+		while (true) {
+			Set<Integer> keySet = readKeySet(socket);
+			// System.out.println(keySet);
+
+			if (keySet.size() == 0) {
+				controller.stop();
+			}
+			if (keySet.size() == 1) {
+				if (keySet.contains(KeyEvent.VK_1)) {
+					new Program1().start();
+				}
+				if (keySet.contains(KeyEvent.VK_X)) {
+					exit(socket);
+				}
+				if (keySet.contains(KeyEvent.VK_UP)) {
+					controller.forward();
+				}
+				if (keySet.contains(KeyEvent.VK_DOWN)) {
+					controller.backward();
+				}
+				if (keySet.contains(KeyEvent.VK_LEFT)) {
+					controller.left();
+				}
+				if (keySet.contains(KeyEvent.VK_RIGHT)) {
+					controller.right();
+				}
+				if (keySet.contains(KeyEvent.VK_A)) {
+					controller.faster();
+				}
+				if (keySet.contains(KeyEvent.VK_Z)) {
+					controller.slower();
+				}
+				if (keySet.contains(KeyEvent.VK_SPACE)) {
+					System.out.println("listener space");
+					buzzer.start();
+				}
+			}
+			if (keySet.size() == 2) {
+				if (keySet.containsAll(Sets.newHashSet(KeyEvent.VK_UP, KeyEvent.VK_RIGHT))) {
+					controller.forwardRight();
+				}
+				if (keySet.containsAll(Sets.newHashSet(KeyEvent.VK_UP, KeyEvent.VK_LEFT))) {
+					controller.forwardLeft();
+				}
+				if (keySet.containsAll(Sets.newHashSet(KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT))) {
+					controller.backwardRight();
+				}
+				if (keySet.containsAll(Sets.newHashSet(KeyEvent.VK_DOWN, KeyEvent.VK_LEFT))) {
+					controller.backwardLeft();
+				}
+			}
+		}
+	}
+
+	private void exit(Socket server) throws IOException {
+		server.close();
+		System.out.println("closed");
+		System.exit(0);
+	}
+
+	@SuppressWarnings("unchecked")
+	public Set<Integer> readKeySet(Socket accept) throws IOException, ClassNotFoundException {
+		ObjectInputStream ois = new ObjectInputStream(accept.getInputStream());
+		Object readObject = ois.readObject();
+		return (Set<Integer>) readObject;
+	}
+
+	public static void main(String[] args) throws UnknownHostException, IOException, InterruptedException, ClassNotFoundException {
+		new RobotServer();
+	}
+};

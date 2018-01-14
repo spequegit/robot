@@ -1,0 +1,170 @@
+package com.robot;
+
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+import com.pi4j.io.gpio.RaspiPin;
+
+public class RobotServer {
+	private Motor motor1 = new Motor(RaspiPin.GPIO_22, RaspiPin.GPIO_08);
+	private Motor motor2 = new Motor(RaspiPin.GPIO_23, RaspiPin.GPIO_09);
+	private Motor motor3 = new Motor(RaspiPin.GPIO_24, RaspiPin.GPIO_07);
+	private Motor motor4 = new Motor(RaspiPin.GPIO_25, RaspiPin.GPIO_00);
+	private Motor motorFR = motor1;
+	private Motor motorRR = motor3;
+	private Motor motorFL = motor2;
+	private Motor motorRL = motor4;
+
+	public RobotServer() throws UnknownHostException, IOException, InterruptedException {
+		ServerSocket server = new ServerSocket(10);
+		System.out.println("start");
+		Socket socket = server.accept();
+		while (true) {
+			Operation operation = readOperation(socket);
+			// search(keyCode);
+			System.out.println(operation);
+			switch (operation) {
+			case END:
+				exit(server);
+				break;
+			case STOP:
+				move(0, 0, 0, 0);
+				break;
+			case FORWARD:
+				move(5, 5, 5, 5);
+				break;
+			case FORWARD_LEFT:
+				move(4, 4, 10, 10);
+				break;
+			case FORWARD_RIGHT:
+				move(10, 10, 4, 4);
+				break;
+			case BACKWARD:
+				move(-5, -5, -5, -5);
+				break;
+			case BACKWARD_LEFT:
+				move(-10, -10, -4, -4);
+				break;
+			case BACKWARD_RIGHT:
+				move(-4, -4, -10, -10);
+				break;
+			case LEFT:
+				move(5, 5, -5, -5);
+				break;
+			case RIGHT:
+				move(-5, -5, 5, 5);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	private void exit(ServerSocket server) throws IOException {
+		server.close();
+		System.out.println("closed");
+		System.exit(0);
+	}
+
+	private Operation readOperation(Socket accept) throws IOException {
+		int number = accept.getInputStream().read();
+		return Operation.values()[number];
+	}
+
+	private void demo() throws InterruptedException {
+		System.out.println("forward");
+		move(5, 5, 5, 5);
+		Thread.sleep(3000);
+		stop();
+		Thread.sleep(1000);
+		right();
+		Thread.sleep(2000);
+		stop();
+		Thread.sleep(1000);
+		System.out.println("forward");
+		move(5, 5, 5, 5);
+		Thread.sleep(3000);
+		stop();
+		Thread.sleep(1000);
+		left();
+		Thread.sleep(2000);
+		stop();
+		Thread.sleep(1000);
+		System.out.println("forward");
+		move(5, 5, 5, 5);
+		Thread.sleep(3000);
+		stop();
+	}
+
+	private void search(int keyCode) throws InterruptedException {
+		if (keyCode == KeyEvent.VK_1) {
+			motor1.move(5);
+			Thread.sleep(1000);
+			stop();
+		}
+		if (keyCode == KeyEvent.VK_2) {
+			motor2.move(5);
+			Thread.sleep(1000);
+			stop();
+		}
+		if (keyCode == KeyEvent.VK_3) {
+			motor3.move(5);
+			Thread.sleep(1000);
+			stop();
+		}
+		if (keyCode == KeyEvent.VK_4) {
+			motor4.move(5);
+			Thread.sleep(1000);
+			stop();
+		}
+	}
+
+	private void stop() {
+		System.out.println("stop");
+		move(0, 0, 0, 0);
+	}
+
+	private void right() {
+		System.out.println("right");
+		move(-5, -5, 5, 5);
+	}
+
+	private void left() {
+		System.out.println("left");
+		move(5, 5, -5, -5);
+	}
+
+	private void forwardRight() {
+		System.out.println("forwardRight");
+		move(10, 10, 5, 5);
+	}
+
+	private void backwardLeft() {
+		System.out.println("backwardLeft");
+		move(-10, -10, -5, -5);
+	}
+
+	private void backwardRight() {
+		System.out.println("backwardRight");
+		move(-5, -5, -10, -10);
+	}
+
+	private void backward() {
+		System.out.println("backward");
+		move(-5, -5, -5, -5);
+	}
+
+	private void move(int frontRight, int rearRight, int frontLeft, int rearLeft) {
+		motorFR.move(frontRight);
+		motorRR.move(rearRight);
+		motorFL.move(frontLeft);
+		motorRL.move(rearLeft);
+	}
+
+	public static void main(String[] args) throws UnknownHostException, IOException, InterruptedException {
+		new RobotServer();
+	}
+};

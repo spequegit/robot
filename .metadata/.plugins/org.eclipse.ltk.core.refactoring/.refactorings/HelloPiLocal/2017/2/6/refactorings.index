@@ -1,0 +1,4 @@
+1486632777264	Encapsulate field 'work'
+1486633660724	Encapsulate field 'distance'
+1486719006721	Extract constant '_80'
+1486719952704	Extract method 'extracted'

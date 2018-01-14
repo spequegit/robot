@@ -1,0 +1,29 @@
+package com.hellopi;
+
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
+import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import com.pi4j.io.gpio.Pin;
+import com.pi4j.io.gpio.RaspiPin;
+
+public class Step {
+
+	private final Pin red = RaspiPin.GPIO_00;
+
+	public Step(String[] arg) throws InterruptedException {
+		GpioController controller = GpioFactory.getInstance();
+		GpioPinDigitalOutput gpio = controller.provisionDigitalOutputPin(red);
+		int sleep = Integer.parseInt(arg[0]);
+
+		for (int i = 0; i < 100; i++) {
+			gpio.setState(true);
+			Thread.sleep(100);
+			gpio.setState(false);
+			Thread.sleep(100);
+		}
+	}
+
+	public static void main(String[] args) throws InterruptedException {
+		new Step(args);
+	}
+}

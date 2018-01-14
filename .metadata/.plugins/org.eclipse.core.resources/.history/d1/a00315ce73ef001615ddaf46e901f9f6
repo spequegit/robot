@@ -1,0 +1,83 @@
+package com.robot;
+
+public class MovementController {
+
+	private int sleep = 5;
+
+	private void move(int frontRight, int rearRight, int frontLeft, int rearLeft) {
+		try {
+			MotorFactory factory = MotorFactory.getInstance();
+			factory.getMotorFR().move(frontRight);
+			factory.getMotorRR().move(rearRight);
+			factory.getMotorFL().move(frontLeft);
+			factory.getMotorRL().move(rearLeft);
+		} catch (Error | InterruptedException e) {
+			// System.err.println("no raspberry pi");
+		}
+	}
+
+	public void stop() {
+		move(0, 0, 0, 0); // FR RR FL RL
+	}
+
+	public void forward() {
+		System.out.println("forward");
+		move(sleep, sleep, sleep, sleep); // FR RR FL RL
+	}
+
+	public void backward() {
+		System.out.println("backward");
+		move(-sleep, -sleep, -sleep, -sleep); // FR RR FL RL
+	}
+
+	public void left() {
+		System.out.println("left");
+		// move(sleep, sleep, -sleep, -sleep); // FR RR FL RL
+		move(-sleep, -sleep, sleep, sleep);// FR RR FL RL
+	}
+
+	public void right() {
+		System.out.println("right");
+		move(sleep, sleep, -sleep, -sleep); // FR RR FL RL
+		// move(-sleep, -sleep, sleep, sleep);// FR RR FL RL
+	}
+
+	public void forwardLeft() {
+		System.out.println("forwardLeft");
+		move(sleep + 1, sleep + 1, sleep, sleep); // FR RR FL RL
+	}
+
+	public void forwardRight() {
+		System.out.println("forwardRight");
+		move(sleep, sleep, sleep + 1, sleep + 1); // FR RR FL RL
+	}
+
+	public void backwardLeft() {
+		System.out.println("backwardLeft");
+		move(-sleep, -sleep, -sleep - 1, -sleep - 1); // FR RR FL RL
+	}
+
+	public void backwardRight() {
+		System.out.println("backwardRight");
+		move(-sleep - 1, -sleep - 1, -sleep, -sleep); // FR RR FL RL
+	}
+
+	public void slower() {
+		this.sleep++;
+		System.out.println(sleep);
+	}
+
+	public void faster() {
+		this.sleep--;
+		System.out.println(sleep);
+	}
+
+	public void setSleep(int i) {
+		this.sleep = i;
+	}
+
+	public void forward(int i) {
+		this.sleep=i;
+		forward();
+	}
+}

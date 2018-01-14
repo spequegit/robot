@@ -1,0 +1,38 @@
+package com.robot;
+
+public class Program1 {
+
+	private SensorController controller;
+	private MovementController movementController;
+
+	public Program1() {
+		System.out.println("1");
+		new Thread() {
+			public void run() {
+				try {
+					scan();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			};
+		}.start();
+	}
+
+	public void scan() throws InterruptedException {
+		controller = new SensorController();
+		controller.start();
+		movementController = new MovementController();
+		movementController.faster();
+		movementController.faster();
+		while (true) {
+			System.out.println(controller.getDistance());
+			Thread.sleep(500);
+			if (controller.getDistance() < 100) {
+				System.out.println("stop!");
+				movementController.stop();
+			} else {
+				movementController.forward();
+			}
+		}
+	}
+}

@@ -1,0 +1,15 @@
+package com.robot;
+
+public class Speed {
+
+	public static void main(String[] args) {
+
+		calculateSleep();
+
+	}
+
+	private long calculateSleep(int speed) {
+		long nanos = 1 / (speed / 100);
+	}
+
+}

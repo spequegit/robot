@@ -1,0 +1,16 @@
+package com.robot;
+
+public class Speed {
+
+	
+	
+	public static void main(String[] args) {
+		
+		
+		long nanos = 1 / (speed / 100);
+
+		
+		
+	}
+	
+}

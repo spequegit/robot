@@ -1,0 +1,18 @@
+package com.robot;
+
+public class Speed {
+
+	public static void main(String[] args) {
+		long calculateSleep = new Speed().milis(75);
+		System.out.println(calculateSleep);
+	}
+
+	private int milis(int speed) {
+		double i = (double) speed / 100;
+		double nanos = (1 / i);
+		double reszta = nanos % 1;
+		double jed = nanos - reszta;
+		return 1;
+	}
+
+}

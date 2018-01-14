@@ -1,0 +1,65 @@
+package com.robot;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.util.HashSet;
+import java.util.Set;
+
+public class RobotClientKeyListener implements KeyListener {
+
+	private OutputStream outputStream;
+	private Socket client;
+	private Set<Integer> keySet = new HashSet<>();
+
+	public RobotClientKeyListener(Socket client, OutputStream outputStream) {
+		this.client = client;
+		this.outputStream = outputStream;
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		try {
+			keySet.remove(e.getKeyCode());
+			doOperation();
+		} catch (IOException exception) {
+			exception.printStackTrace();
+		}
+	};
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		try {
+			keySet.add(e.getKeyCode());
+			doOperation();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	private void doOperation() throws IOException {
+		System.out.println(keySet);
+		if (keySet.contains(KeyEvent.VK_X)) {
+			send(Operation.END);
+			client.close();
+			System.exit(0);
+		} else if (keySet.isEmpty()) {
+			send(Operation.STOP);
+		} else {
+			send(Operation.findByKeySet(keySet));
+		}
+	}
+
+	private void send(Operation operation) throws IOException {
+		if (operation != null) {
+			// System.out.println(operation);
+			outputStream.write(operation.ordinal());
+		}
+	}
+}

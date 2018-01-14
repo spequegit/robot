@@ -1,0 +1,11 @@
+1512850684334	Delete element
+1512850718835	Move folder
+1512850729825	Delete element
+1512851141563	Delete element
+1512851159354	Rename type 'SensorController2'
+1512851225304	Extract method 'extracted'
+1512930244130	Rename local variable 'roundDistance'
+1512930268467	Extract local variable 'calculateDistance'
+1512930346743	Extract local variable 'addFirstRemoveLast'
+1512931983329	Rename field 'accuracy'
+1512932781615	Extract local variable 'round'

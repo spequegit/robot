@@ -1,0 +1,16 @@
+package com.robot;
+
+public class Speed {
+
+	private static final int MILI_AS_NANOS = 1000000;
+
+	private static int[] milinano(int speed) {
+		double i = (double) speed / 10;
+		double nanos = (1 / i);
+		double mod = nanos % 1;
+		double jed = nanos - mod;
+		int[] result = { (int) jed, (int) (mod * MILI_AS_NANOS) };
+		return result;
+	}
+
+}

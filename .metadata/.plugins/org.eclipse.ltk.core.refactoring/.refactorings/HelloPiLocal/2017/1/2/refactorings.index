@@ -1,0 +1,34 @@
+1484245842636	Copy file
+1484246067549	Delete element
+1484246396186	Delete element
+1484249758049	Copy file
+1484252155403	Copy file
+1484252295880	Delete element
+1484252299630	Delete element
+1484252400137	Rename resource 'copyJarToPi.bat'
+1484252615105	Copy file
+1484252787362	Delete element
+1484387003051	Copy compilation unit
+1484388168061	Extract local variable 'b'
+1484416148844	Copy compilation unit
+1484421674423	Extract method 'extracted'
+1484421720685	Rename method 'getRange'
+1484421729537	Rename local variable 'rangesensor'
+1484421776134	Rename field 'firepulse'
+1484421790102	Rename field 'result_pin'
+1484422816941	Extract method 'extracted'
+1484422828036	Extract method 'extracted'
+1484423795342	Rename local variable 'subList'
+1484424654821	Inline local variable 'subList'
+1484425548163	Extract constant '_10'
+1484471977751	Rename field 'DOKLADNOSC'
+1484472024196	Rename field 'ACCURACY'
+1484506502340	Copy compilation unit
+1484507445241	Copy compilation unit
+1484508062968	Rename type 'TestStep2'
+1484508071455	Rename type 'TestStepTwice'
+1484512693197	Extract method 'extracted'
+1484512739535	Extract method 'extracted'
+1484513316565	Rename type 'TestStepDouble'
+1484513330059	Rename type 'TestStepThread'
+1484513862278	Delete element
